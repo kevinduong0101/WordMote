@@ -132,7 +132,7 @@ class MenuBarManager: NSObject {
         if settingsWindow == nil {
             let contentView = SettingsView().environmentObject(wordManager)
             let win = NSWindow(
-                contentRect: NSRect(x: 0, y: 0, width: 480, height: 320),
+                contentRect: NSRect(x: 0, y: 0, width: 480, height: 530),
                 styleMask: [.titled, .closable],
                 backing: .buffered,
                 defer: false

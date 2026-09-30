@@ -2,10 +2,39 @@ import SwiftUI
 
 struct MenuView: View {
     @EnvironmentObject var wordManager: WordManager
+    @ObservedObject var updateManager = UpdateManager.shared
     var menuBarManager: MenuBarManager
     
     var body: some View {
         VStack(spacing: 6) {
+            if updateManager.isUpdateAvailable {
+                Button(action: {
+                    updateManager.openDownloadPage()
+                    menuBarManager.closePopover()
+                }) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "sparkles")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(.yellow)
+                        Text("New Update: v\(updateManager.latestVersion)")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(.white)
+                        Spacer()
+                        Image(systemName: "arrow.down.circle.fill")
+                            .font(.system(size: 14))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 10)
+                    .background(LinearGradient(colors: [Color.blue, Color.purple], startPoint: .leading, endPoint: .trailing))
+                    .cornerRadius(8)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Divider()
+                    .padding(.vertical, 2)
+            }
+            
             MenuButton(icon: "macwindow", title: "Toggle Desktop Widget") {
                 menuBarManager.toggleWidget()
                 menuBarManager.closePopover()

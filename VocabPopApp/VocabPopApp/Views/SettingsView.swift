@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var wordManager: WordManager
+    @ObservedObject var updateManager = UpdateManager.shared
     @AppStorage("autoAdvanceMinutes") var autoAdvanceMinutes: Int = 5
     @AppStorage("baseIntervalMinutes") var baseIntervalMinutes: Int = 15
     @AppStorage("quizIntervalMinutes") var quizIntervalMinutes: Int = 60
@@ -21,7 +22,7 @@ struct SettingsView: View {
             .padding()
             .background(Color.secondary.opacity(0.05))
             
-            VStack(spacing: 20) {
+            VStack(spacing: 16) {
                 // Card 1: Auto-Play
                 SettingCard(
                     icon: "timer",
@@ -52,12 +53,59 @@ struct SettingsView: View {
                 ) {
                     wordManager.startQuizTimer()
                 }
+                
+                // Card 4: Software Update
+                HStack(alignment: .center, spacing: 16) {
+                    Image(systemName: updateManager.isUpdateAvailable ? "sparkles" : "arrow.triangle.2.circlepath.circle")
+                        .font(.system(size: 26, weight: .light))
+                        .foregroundColor(updateManager.isUpdateAvailable ? .yellow : .orange)
+                        .frame(width: 40)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(updateManager.isUpdateAvailable ? "New Update Available!" : "Software Update")
+                            .font(.headline)
+                        Text(updateManager.statusMessage ?? "WordMote v\(updateManager.currentVersion)")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    
+                    Spacer()
+                    
+                    if updateManager.isUpdateAvailable {
+                        Button("Update Now") {
+                            updateManager.openDownloadPage()
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(.blue)
+                    } else {
+                        Button(action: {
+                            updateManager.checkForUpdates(silent: false)
+                        }) {
+                            if updateManager.isChecking {
+                                ProgressView()
+                                    .scaleEffect(0.7)
+                            } else {
+                                Text("Check Now")
+                            }
+                        }
+                        .buttonStyle(.bordered)
+                        .disabled(updateManager.isChecking)
+                    }
+                }
+                .padding()
+                .background(Color.white.opacity(0.1))
+                .cornerRadius(16)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.gray.opacity(0.15), lineWidth: 1)
+                )
             }
             .padding(20)
             
             Spacer()
         }
-        .frame(width: 450, height: 450)
+        .frame(width: 480, height: 530)
         .background(VisualEffectView().ignoresSafeArea())
     }
 }
