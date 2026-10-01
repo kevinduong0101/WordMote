@@ -2,15 +2,22 @@
 
 <p align="center">
   <img src="AppIcon.png" alt="WordMote Logo" width="128" height="128"><br>
-  <b>Minimalist Desktop Widget & Smart Spaced Repetition Vocabulary Learning App for macOS</b><br>
-  <i>Master English vocabulary effortlessly through ambient desktop immersion and smart active recall.</i>
+  <b>Minimalist Menu Bar & Smart Spaced Repetition Vocabulary App for macOS</b><br>
+  <i>Master English vocabulary effortlessly through Menu Bar ambient learning and smart active recall.</i>
 </p>
 
 <p align="center">
+  <a href="https://github.com/kevinduong0101/WordMote/releases/latest"><img src="https://img.shields.io/badge/Release-v1.0.0-blue.svg?style=flat-square" alt="Latest Release"></a>
   <img src="https://img.shields.io/badge/Platform-macOS%2013.0%2B-black?style=flat-square&logo=apple" alt="macOS">
   <img src="https://img.shields.io/badge/Language-Swift%205.9%2B-orange?style=flat-square&logo=swift" alt="Swift">
   <img src="https://img.shields.io/badge/UI-SwiftUI%20%2B%20AppKit-blue?style=flat-square" alt="SwiftUI">
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License">
+</p>
+
+<p align="center">
+  <a href="https://github.com/kevinduong0101/WordMote/releases/latest/download/WordMote.dmg">
+    <img src="https://img.shields.io/badge/⬇️_Download-WordMote.dmg-2ea44f?style=for-the-badge&logo=apple" alt="Download WordMote.dmg">
+  </a>
 </p>
 
 ---
@@ -30,57 +37,97 @@
 ## 🇬🇧 English
 
 ### Overview
-**WordMote** is a native macOS application engineered for passive ambient learning and active retrieval practice. Rather than forcing users into high-friction study sessions, it seamlessly embeds interactive vocabulary cards onto the macOS desktop layer, schedules spaced repetition reviews, and conducts intelligent active recall quizzes that automatically respect your focus.
+**WordMote** is a lightweight, distraction-free macOS menu bar application designed for effortless vocabulary acquisition. Rather than forcing you into cumbersome flashcard sessions, WordMote quietly rotates high-yield vocabulary directly in your macOS Status Bar, applies an adaptive Spaced Repetition System (SRS), and challenges you with periodic active recall quizzes that respect your deep work focus.
 
-### ✨ Key Features
-1. **Desktop Ambient Widget**
-   - Sleek glassmorphic (`NSVisualEffectView`) card pinned directly to the desktop layer.
-   - Non-activating panel (`NSPanel` with `acceptsFirstMouse`) that stays accessible without stealing focus.
-   - High-definition GIF / WebP / Image visual cue integration via WebKit.
-   - **One-Click Native Pronunciation**: Click any English word or speaker icon to trigger native US audio pronunciation powered by `AVSpeechSynthesizer`.
+---
 
-2. **Adaptive Spaced Repetition System (SRS)**
-   - Smart scheduling algorithm that automatically calibrates review intervals based on consecutive recall streaks:
-     - Streak 1 & 2: Review after 1 day.
-     - Streak 3 & 4: Review after 3 days.
-     - Streak 5: Review after 5 days.
-     - Streak 6+: Review extended by +5 days per successful streak ($Days = (Streak - 4) \times 5$).
-   - Never deletes or loses mastered words; dynamically schedules reviews when memory retention begins to fade.
+### 📸 Visual User Guide & Key Features
 
-3. **Active Recall Pop-up Quiz**
-   - Periodic interactive challenge modal with two 50/50 randomized quiz modes:
-     - **Multiple Choice**: Identify the correct definition from randomized distractors.
-     - **Typing Recall**: Type the exact English word corresponding to a given definition (case-insensitive with auto-trimming).
-   - Instant visual validation (green success feedback, red shake animation for errors).
-   - Persistent always-on-top window with dedicated **30-minute** and **1-hour** snooze buttons for busy moments.
+#### 1. Ambient Menu Bar Learning
+WordMote lives seamlessly inside your top macOS Menu Bar. As you browse, code, or work, vocabulary words cycle in the background at your preferred pace.
 
-4. **Smart Do-Not-Disturb (Fullscreen Detection)**
-   - Utilizes low-level macOS CoreGraphics Window Server APIs (`CGWindowListCopyWindowInfo`) to inspect display layers.
-   - Automatically detects when you are watching movies (Netflix, YouTube), giving presentations, or playing full-screen games.
-   - Silently postpones the quiz by 10 minutes without showing intrusive alerts.
+<p align="center">
+  <img src="https://pub-3d6a4034dfa54cffb965a33706286d0d.r2.dev/WordMote/menubar.png" alt="Menu Bar Ambient Learning" width="600" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+</p>
 
-5. **Menu Bar Quick Control & Library**
-   - Resides neatly in the macOS Status Bar with a custom interactive popover menu.
-   - Live Status Bar title updating to display the currently active word in real time.
-   - Library card manager featuring duplicate word detection, instant editing, and hover-action controls.
+- **Unobtrusive Presence**: Shows the brain icon and the active word without cluttering your desktop.
+- **Cheat-Proof Design**: When a quiz pop-up triggers, the menu bar title automatically hides the answer and only reappears once the test is completed.
+- **Interactive Dropdown**: Click the menu item anytime to add new words, review your vocabulary collection, or test yourself immediately.
 
-### 📥 Download & Install (For Users)
-1. Go to the [Releases](https://github.com/kevinduong0101/WordMote/releases) tab.
-2. Download the latest `WordMote.dmg`.
-3. Open `WordMote.dmg` and drag `WordMote.app` into your **Applications** folder.
-4. *macOS Gatekeeper note*: If macOS alerts "unidentified developer", simply Right-click `WordMote.app` > **Open**, or go to **System Settings** > **Privacy & Security** > **Open Anyway**.
+---
 
-### 🛠️ Build & Run (For Developers)
-```bash
-# 1. Clone the repository
-git clone https://github.com/kevinduong0101/WordMote.git
-cd WordMote
+#### 2. Active Recall Pop-up Quizzes (50/50 Dual Modes)
+Passive exposure is paired with active retrieval practice. WordMote periodically prompts you with bite-sized challenges to reinforce your long-term memory.
 
-# 2. Open project in Xcode
-open VocabPopApp/VocabPopApp.xcodeproj
-```
-- In Xcode, select destination **My Mac**.
-- Press `Cmd + R` to compile and launch.
+<table align="center" border="0" cellpadding="10" cellspacing="0">
+  <tr>
+    <td align="center" width="50%">
+      <b>Mode A: Multiple Choice Quiz</b><br><br>
+      <img src="https://pub-3d6a4034dfa54cffb965a33706286d0d.r2.dev/WordMote/popup_select.png" alt="Multiple Choice Quiz" width="380" style="border-radius: 10px;">
+      <p align="left" style="font-size: 13px;">
+        • Pick the correct meaning from 4 shuffled options.<br>
+        • <b>Native US Audio</b>: Tap the speaker icon to hear authentic pronunciation via Apple Speech Synthesis.<br>
+        • Contextual mnemonic visuals help anchor mental connections.
+      </p>
+    </td>
+    <td align="center" width="50%">
+      <b>Mode B: Active Typing Recall</b><br><br>
+      <img src="https://pub-3d6a4034dfa54cffb965a33706286d0d.r2.dev/WordMote/popup_typetext.png" alt="Typing Recall Mode" width="380" style="border-radius: 10px;">
+      <p align="left" style="font-size: 13px;">
+        • Challenge deep memory retrieval by typing the exact English word based on its definition.<br>
+        • Case-insensitive validation with gentle shake animation on errors.<br>
+        • Flexible <b>Snooze 30 mins</b> & <b>Snooze 1 hour</b> buttons when you need uninterrupted focus.
+      </p>
+    </td>
+  </tr>
+</table>
+
+---
+
+#### 3. Custom Preferences & 1-Click Auto-Update
+Tailor your learning rhythm and keep your app continuously up to date without manual maintenance.
+
+<p align="center">
+  <img src="https://pub-3d6a4034dfa54cffb965a33706286d0d.r2.dev/WordMote/settings.png" alt="Preferences Window" width="560" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+</p>
+
+- **Word Rotation Interval**: Adjust how often the Menu Bar switches to a new vocabulary word (in minutes).
+- **Memory System**: Configure base repetition intervals for words needing review.
+- **Quiz Popup Interval**: Set how frequently active recall quizzes appear.
+- **1-Click In-App Auto-Update**: When a new version is released, simply click **Update Now**. WordMote downloads the package silently, upgrades itself in `/Applications`, and relaunches smoothly.
+
+---
+
+### 🧠 The Science: Adaptive Spaced Repetition (SRS)
+WordMote uses a progressive interval expansion model based on your consecutive correct recall streak:
+
+| Correct Streak | Review Interval | Learning Stage |
+| :---: | :---: | :--- |
+| **1 - 2 times** | **1 Day** | Initial Acquisition |
+| **3 - 4 times** | **3 Days** | Early Retention |
+| **5 times** | **5 Days** | Intermediate Consolidation |
+| **6+ times** | **+5 Days per streak** $(Days = (Streak - 4) \times 5)$ | Long-Term Mastery |
+
+> [!NOTE]
+> Mastered words are never forgotten or deleted. The system dynamically brings them back when retention decay is mathematically due.
+
+---
+
+### 🛡️ Smart Fullscreen Do-Not-Disturb
+WordMote automatically inspects macOS display layers (`CGWindowListCopyWindowInfo`):
+- When you are watching **YouTube**, **Netflix**, giving **keynote presentations**, or playing games in **full screen**, quizzes are **silently postponed by 10 minutes**.
+- Zero interruptions during your entertainment or meetings.
+
+---
+
+### 📥 Download & Installation
+
+1. Download the latest release: **[WordMote.dmg](https://github.com/kevinduong0101/WordMote/releases/latest/download/WordMote.dmg)**
+2. Open `WordMote.dmg` and drag `WordMote.app` into your **Applications** folder.
+3. Launch **WordMote** from Applications.
+4. *macOS Gatekeeper tip*: If macOS shows a prompt regarding an unidentified developer:
+   - Right-click `WordMote.app` > choose **Open**, or
+   - Go to **System Settings** > **Privacy & Security** > click **Open Anyway**.
 
 ---
 
@@ -88,40 +135,94 @@ open VocabPopApp/VocabPopApp.xcodeproj
 ## 🇻🇳 Tiếng Việt
 
 ### Giới thiệu
-**WordMote** là ứng dụng học từ vựng tiếng Anh chuyên sâu dành riêng cho macOS, kết hợp giữa việc "ngấm từ vựng thụ động" ngay trên màn hình nền Desktop và "truy hồi chủ động" qua các bài trắc nghiệm ngẫu nhiên, giúp bạn ghi nhớ từ vựng lâu dài mà không bị ngắt quãng dòng làm việc.
+**WordMote** là ứng dụng học từ vựng tiếng Anh tối giản, chạy 100% trên thanh Menu Bar của macOS. Ứng dụng giúp bạn hấp thu từ vựng tự nhiên trong suốt ngày làm việc: từ vựng tự động luân phiên hiển thị trước mắt, kết hợp thuật toán lặp lại ngắt quãng (Spaced Repetition System - SRS) và bài tập trắc nghiệm thông minh không làm gián đoạn công việc.
 
-### ✨ Tính năng nổi bật
-1. **Widget kính mờ dán chặt Desktop**
-   - Thiết kế chuẩn Apple Glassmorphism siêu sang, nằm chìm trên màn hình nền Desktop nhưng vẫn bấm tương tác được ngay lập tức (`acceptsFirstMouse`).
-   - Tích hợp ảnh GIF/ảnh minh hoạ động giúp kích thích trí nhớ hình ảnh.
-   - **Phát âm chuẩn bản ngữ**: Nhấn trực tiếp vào chữ tiếng Anh bất kỳ để nghe đọc chuẩn giọng Mỹ (`AVSpeechSynthesizer`).
+---
 
-2. **Thuật toán lặp lại ngắt quãng thông minh (SRS)**
-   - Không máy móc xóa từ khi thuộc, thuật toán tự động giãn cách thời gian ôn tập theo chuỗi ghi nhớ liên tiếp:
-     - Đúng 1 - 2 lần: Ôn lại sau 1 ngày.
-     - Đúng 3 - 4 lần: Giảm tần suất, ôn lại sau 3 ngày.
-     - Đúng 5 lần: Ôn lại sau 5 ngày.
-     - Đúng 6 lần trở lên: Ôn lại sau 10 ngày, 15 ngày, 20 ngày...
+### 📸 Hướng Dẫn Sử Dụng Trực Quan & Tính Năng Chính
 
-3. **Pop-up Quiz kiểm tra trí nhớ tương tác**
-   - Tự động hiện câu hỏi kiểm tra sau khoảng thời gian tùy chọn với 2 chế độ ngẫu nhiên 50/50:
-     - **Trắc nghiệm 4 lựa chọn (A, B, C, D)**: Lấy nghĩa ngẫu nhiên từ thư viện từ vựng.
-     - **Gõ từ (Typing Mode)**: Đưa ra định nghĩa tiếng Việt, bắt buộc bạn gõ đúng chính xác từ tiếng Anh (không phân biệt hoa thường).
-   - Hiệu ứng rung lắc khi chọn sai và viền xanh khi trả lời đúng.
-   - Cửa sổ nổi trên cùng, có 2 nút **Snooze 30 phút** và **Snooze 1 giờ** khi bạn đang bận.
+#### 1. Học Ngầm Tự Nhiên Trên Menu Bar
+WordMote xuất hiện gọn gàng ngay trên thanh trạng thái macOS. Trong lúc bạn làm việc, lướt web hay gõ code, từ vựng sẽ tự động đổi theo chu kỳ bạn cài đặt.
 
-4. **Chế độ Không làm phiền khi xem phim (Fullscreen Detection)**
-   - Quét ngầm hệ thống qua macOS CoreGraphics: Nếu bạn đang xem Netflix, YouTube toàn màn hình hoặc chơi game, ứng dụng sẽ **tự động hoãn câu hỏi 10 phút một cách im lặng**, tuyệt đối không làm tụt cảm xúc xem phim.
+<p align="center">
+  <img src="https://pub-3d6a4034dfa54cffb965a33706286d0d.r2.dev/WordMote/menubar.png" alt="Thanh Menu Bar WordMote" width="600" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+</p>
 
-5. **Điều khiển Menu Bar & Quản lý thư viện**
-   - Biểu tượng não bộ trên thanh Menu Bar hiển thị trực tiếp từ vựng đang học theo thời gian thực.
-   - Thư viện quản lý từ dạng thẻ (Card), có tính năng phát hiện và cảnh báo chống thêm từ trùng lặp.
+- **Không chiếm diện tích**: Nằm gọn trên thanh Menu Bar với biểu tượng não bộ `🧠` kèm từ vựng tiếng Anh.
+- **Tự động ẩn khi làm bài Quiz**: Mỗi khi popup Quiz hiện ra, chữ trên Menu Bar sẽ lập tức ẩn đi để bạn không thể "nhìn lén" đáp án, và sẽ tự động hiện lại từ kế tiếp ngay sau khi trả lời xong.
+- **Menu tương tác**: Bấm chuột vào biểu tượng để thêm từ mới, quản lý bộ từ vựng hoặc kích hoạt bài kiểm tra ngay lập tức.
 
-### 📥 Tải & Cài đặt file .dmg
-1. Truy cập vào mục [Releases](https://github.com/kevinduong0101/WordMote/releases).
-2. Tải file `WordMote.dmg` mới nhất về máy.
-3. Kéo biểu tượng `WordMote` vào thư mục **Applications**.
-4. *Lưu ý macOS*: Lần đầu mở app nếu có thông báo bảo mật, chỉ cần Chuột phải vào app > chọn **Open** (hoặc vào **Cài đặt máy** > **Quyền riêng tư & Bảo mật** > bấm **Open Anyway**).
+---
+
+#### 2. Bài Tập Kiểm Tra Chủ Động (2 Chế Độ Ngẫu Nhiên 50/50)
+Kết hợp giữa việc nhìn từ thụ động và truy xuất chủ động (Active Recall) để khắc sâu từ vựng vào trí nhớ dài hạn.
+
+<table align="center" border="0" cellpadding="10" cellspacing="0">
+  <tr>
+    <td align="center" width="50%">
+      <b>Chế độ A: Trắc Nghiệm 4 Lựa Chọn</b><br><br>
+      <img src="https://pub-3d6a4034dfa54cffb965a33706286d0d.r2.dev/WordMote/popup_select.png" alt="Trắc nghiệm 4 lựa chọn" width="380" style="border-radius: 10px;">
+      <p align="left" style="font-size: 13px;">
+        • Chọn định nghĩa đúng trong 4 đáp án xáo trộn.<br>
+        • <b>Phát âm giọng Mỹ bản ngữ</b>: Bấm vào biểu tượng loa để nghe đọc chuẩn qua công nghệ Apple Speech Synthesis.<br>
+        • Hình ảnh trực quan sinh động giúp liên tưởng và ghi nhớ nhanh.
+      </p>
+    </td>
+    <td align="center" width="50%">
+      <b>Chế độ B: Gõ Lại Từ Vựng (Active Typing)</b><br><br>
+      <img src="https://pub-3d6a4034dfa54cffb965a33706286d0d.r2.dev/WordMote/popup_typetext.png" alt="Chế độ gõ từ" width="380" style="border-radius: 10px;">
+      <p align="left" style="font-size: 13px;">
+        • Rèn luyện trí nhớ sâu bằng cách tự tay gõ lại chính xác từ tiếng Anh dựa theo nghĩa và hình ảnh.<br>
+        • Không phân biệt hoa/thường, hiệu ứng rung báo lỗi trực quan khi gõ sai.<br>
+        • Có nút <b>Hoãn 30 phút (Snooze 30 mins)</b> và <b>Hoãn 1 giờ</b> khi bạn đang bận việc gấp.
+      </p>
+    </td>
+  </tr>
+</table>
+
+---
+
+#### 3. Bảng Cài Đặt Cá Nhân & Tự Động Nâng Cấp 1-Click
+Tùy biến nhịp điệu học tập và nâng cấp ứng dụng hoàn toàn tự động, người dùng không cần phải tải lại hay thao tác kéo thả thủ công.
+
+<p align="center">
+  <img src="https://pub-3d6a4034dfa54cffb965a33706286d0d.r2.dev/WordMote/settings.png" alt="Cài đặt Preferences" width="560" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+</p>
+
+- **Word Rotation Interval**: Số phút tự động đổi sang từ vựng tiếp theo trên Menu Bar.
+- **Memory System**: Khoảng thời gian cơ bản để ôn lại các từ chưa thuộc.
+- **Quiz Popup Interval**: Tần suất xuất hiện bài trắc nghiệm pop-up.
+- **Tự động cập nhật 1-Click (Software Update)**: Khi có bản mới trên GitHub, chỉ cần bấm **Update Now**, app sẽ tự tải ngầm file DMG, tự cập nhật vào `/Applications` và tự khởi động lại phiên bản mới.
+
+---
+
+### 🧠 Thuật Toán Ghi Nhớ Ngắt Quãng (SRS)
+Khoảng cách ôn tập được tự động giãn cách dựa trên số lần bạn trả lời đúng liên tiếp:
+
+| Chuỗi đúng liên tiếp | Thời gian ôn lại | Giai đoạn ghi nhớ |
+| :---: | :---: | :--- |
+| **1 - 2 lần** | **Sau 1 ngày** | Tiếp nhận từ mới |
+| **3 - 4 lần** | **Sau 3 ngày** | Ghi nhớ ban đầu |
+| **5 lần** | **Sau 5 ngày** | Củng cố trí nhớ |
+| **6 lần trở lên** | **+5 ngày mỗi chuỗi** (10 ngày, 15 ngày, 20 ngày...) | Khắc sâu vào trí nhớ dài hạn |
+
+---
+
+### 🛡️ Chế Độ Thông Minh: Không Làm Phiền Khi Xem Phim
+Hệ thống tự động phát hiện cửa sổ toàn màn hình qua macOS CoreGraphics:
+- Khi bạn xem **YouTube**, **Netflix**, thuyết trình slide hoặc chơi game toàn màn hình, WordMote sẽ **tự động hoãn câu hỏi 10 phút một cách yên lặng**.
+- Không bao giờ làm gián đoạn trải nghiệm giải trí hoặc công việc quan trọng.
+
+---
+
+### 📥 Tải Về & Cài Đặt
+
+1. Tải bản mới nhất: **[WordMote.dmg](https://github.com/kevinduong0101/WordMote/releases/latest/download/WordMote.dmg)**
+2. Mở file `WordMote.dmg` và kéo icon `WordMote.app` vào thư mục **Applications**.
+3. Chạy **WordMote** từ Applications.
+4. *Khắc phục thông báo nhà phát triển macOS*: Nếu macOS báo chưa xác minh nhà phát triển:
+   - Chuột phải vào `WordMote.app` > chọn **Open**, hoặc
+   - Vào **System Settings** > **Privacy & Security** > bấm **Open Anyway**.
 
 ---
 
@@ -129,35 +230,14 @@ open VocabPopApp/VocabPopApp.xcodeproj
 ## 🇨🇳 简体中文
 
 ### 概述
-**WordMote** 是一款专为 macOS 设计的原生轻量级英语词汇学习工具。采用“桌面潜意识浸润 + 智能间隔重复（SRS）+ 主动召回测验”的科学记忆闭环，让您在日常电脑办公与学习过程中毫不费力地积累掌握大量高级词汇。
+**WordMote** 是一款专为 macOS 设计的极简菜单栏英语词汇学习工具。无需繁重的背单词打卡任务，WordMote 将重点词汇实时融入您的顶部菜单栏，借助科学的间隔重复记忆系统（SRS）与智能主动召回弹窗，让您在日常办公中自然掌握大量词汇。
 
 ### ✨ 核心功能
-1. **桌面毛玻璃微件（Desktop Widget）**
-   - 原生 Apple Glassmorphism 设计，轻巧贴合在桌面壁纸层，随手点击即可交互（`acceptsFirstMouse` 无缝捕获鼠标）。
-   - 支持高品质动图与图片辅助记忆，激活图像记忆网络。
-   - **一键原声音频朗读**：轻点任何英文单词，即可通过内置 `AVSpeechSynthesizer` 聆听标准美音发音。
-
-2. **自适应间隔重复记忆算法（SRS）**
-   - 告别简单机械的“背完即删”，系统依据您的连续正确召回次数动态调整复习间距：
-     - 连续答对 1 - 2 次：次日（1天后）复习。
-     - 连续答对 3 - 4 次：降低出现频率，3天后复习。
-     - 连续答对 5 次：5天后复习。
-     - 连续答对 6 次及以上：每成功一次延长5天（10天、15天、20天...）。
-
-3. **主动召回弹窗测验（Quiz Pop-up）**
-   - 定时弹出沉浸式测验，随机采用两种 50/50 挑战形式：
-     - **四选一客观题**：从词库中动态抽取混淆项，快速识别词义。
-     - **拼写填空题**：根据释义拼写完整的英文单词（不区分大小写，自动滤除首尾空格）。
-   - 答错微件震动报错，答对变绿并自动计入 SRS 熟练度。
-   - 置顶窗口防跳过，并配备 **小憩30分钟（Snooze 30m）** 与 **小憩1小时（Snooze 1h）** 便捷控制。
-
-4. **智能全屏防打扰（Smart Do-Not-Disturb）**
-   - 底层调用 macOS CoreGraphics 窗口服务 API，精确判定前台是否有全屏应用。
-   - 当您在全屏观看 Netflix、YouTube 视频或畅玩全屏游戏时，系统**静默顺延 10 分钟**，绝不突兀弹出打扰。
-
-5. **菜单栏极简交互与词库管理**
-   - 顶部状态栏图标旁实时同步显示当前正在学习的词汇。
-   - 卡片式词库管理界面，具备智能查重功能，防止录入重复词条。
+1. **菜单栏沉浸式记忆助手**：常驻 macOS 顶部状态栏，实时轮播当前词汇；弹出测验时自动隐藏菜单栏词条，防止偷看。
+2. **主动召回双模式测验（50/50）**：支持四选一客观题与拼写填空题，配备原生美音朗读（TTS）与快捷延后（Snooze 30m / 1h）。
+3. **自适应间隔重复记忆算法（SRS）**：根据连续召回正确率智能递增复习周期（1天、3天、5天、10天、15天...）。
+4. **全屏智能防打扰**：全屏观看 Netflix、YouTube 或演示幻灯片时，测验弹窗自动静默顺延 10 分钟。
+5. **应用内一键自动升级**：内置更新管理器，点击即可全自动下载、静默替换安装并无缝重启。
 
 ---
 
@@ -165,36 +245,14 @@ open VocabPopApp/VocabPopApp.xcodeproj
 ## 🇯🇵 日本語
 
 ### 概要
-**WordMote** は、macOS のために開発されたスマートな英単語学習・定着アプリケーションです。「デスクトップ環境への自然な浸透」と「アクティブリコール（想起訓練）に基づく間隔反復学習（SRS）」を融合させ、普段のPC作業の邪魔をすることなく、確実な語彙力向上を実現します。
+**WordMote** は、macOS のメニューバーに常駐するスマートな英単語学習アプリケーションです。普段のPC作業を妨げることなく、メニューバー上で単語を自然に確認でき、忘却曲線に合わせた分散学習（SRS）とポップアップ確認テストによって確実な記憶定着を促します。
 
 ### ✨ 主な特長
-1. **デスクトップ常駐型すりガラスウィジェット**
-   - macOS 純正の美しいグラスモーフィズムデザイン（`NSVisualEffectView`）。
-   - 他のウィンドウのフォーカスを奪うことなく、ワンクリックで操作可能な `acceptsFirstMouse` 仕様。
-   - GIF/画像の視覚的フックによる記憶定着の促進。
-   - **ワンタップネイティブ音声読み上げ**：単語をクリックするだけで、Apple の音声合成エンジンによる正確なアメリカ英語の発音（TTS）が再生されます。
-
-2. **適応型分散学習システム（SRS）**
-   - 単語を忘却曲線に合わせて最適なタイミングで自動再出題：
-     - 連続正解 1〜2 回：翌日（1日後）に再復習。
-     - 連続正解 3〜4 回：出現頻度を抑え、3日後に復習。
-     - 連続正解 5 回：5日後に復習。
-     - 連続正解 6 回以上：10日、15日、20日…と正解ごとに5日間隔を延長。
-
-3. **ポップアップ即時テスト（Pop-up Quiz）**
-   - 定期的に表示されるインタラクティブな確認テスト（50/50 の確率で形式が変動）：
-     - **4択選択問題**：ランダムに生成された選択肢から正しい意味を選択。
-     - **スペリング入力問題**：表示された意味に対応する英単語を正確に入力（大文字・小文字は自動判別）。
-   - 正解時はグリーン点灯、不正解時はシェイクアニメーションでフィードバック。
-   - 集中したい時のための「**30分スヌーズ**」「**1時間スヌーズ**」ボタンを完備。
-
-4. **全画面メディア自動検知・非通知機能（Do Not Disturb）**
-   - macOS CoreGraphics API を活用し、画面がフルスクリーン状態かどうかを常時監視。
-   - Netflix や YouTube の全画面視聴中、またはゲームプレイ中は、**テストの表示を自動的かつ静かに10分間延期**します。
-
-5. **メニューバー統合＆単語管理ライブラリ**
-   - メニューバー上に現在学習中の単語がリアルタイム表示されます。
-   - 重複登録防止アラート、ホバー操作による編集・削除機能を備えた洗練されたカード型ライブラリ。
+1. **メニューバー統合型学習コンパニオン**：メニューバー上で単語が自動ローテーション。テスト出題時はメニューバーの単語が非表示になり、カンニングを防ぎます。
+2. **能動的想起ポップアップテスト**：4択問題とスペリング入力問題の2つの出題形式、ネイティブ音声読み上げ（TTS）、スヌーズ（30分/1時間）を完備。
+3. **適応型分散学習システム（SRS）**：連続正解数に応じて復習間隔を自動調整（1日後、3日後、5日後、10日後…）。
+4. **全画面メディア自動検知・非通知機能**：フルスクリーン動画視聴中やプレゼン中は、出題を自動的に10分間延期。
+5. **ワンクリック自動アップデート**：アプリ内から1クリックでダウンロード・置換・再起動まで全自動で完了。
 
 ---
 
@@ -202,33 +260,14 @@ open VocabPopApp/VocabPopApp.xcodeproj
 ## 🇹🇭 ภาษาไทย
 
 ### ภาพรวม
-**WordMote** คือแอปพลิเคชันสำหรับ macOS ที่ออกแบบมาเพื่อการเรียนรู้และจดจำคำศัพท์ภาษาอังกฤษอย่างมีประสิทธิภาพ ผสมผสานระหว่าง "การซึมซับคำศัพท์ผ่านหน้าจอเดสก์ท็อป" และ "การทดสอบความจำแบบเว้นระยะ (Spaced Repetition System - SRS)" ช่วยให้คุณจำคำศัพท์ได้อย่างแม่นยำและยาวนานโดยไม่รบกวนการทำงานประจำวัน
+**WordMote** คือแอปพลิเคชันสำหรับ macOS ที่ออกแบบมาเพื่อการเรียนรู้คำศัพท์ภาษาอังกฤษผ่าน Menu Bar อย่างเรียบง่าย คำศัพท์จะแสดงหมุนเวียนบนแถบสถานะด้านบน พร้อมระบบจำคำศัพท์เว้นระยะ (SRS) และควิซสุ่มทดสอบความจำที่ไม่รบกวนเวลาทำงาน
 
 ### ✨ ฟีเจอร์เด่น
-1. **วิดเจ็ตเดสก์ท็อปกระจกฝ้าสุดมินิมอล**
-   - ดีไซน์ Glassmorphism ที่สวยงามกลมกลืนกับระบบ macOS พร้อมโต้ตอบได้ทันทีโดยไม่แย่งโฟกัสของแอปอื่น (`acceptsFirstMouse`)
-   - รองรับภาพ GIF และภาพนิ่งเพื่อช่วยกระตุ้นความจำผ่านภาพ
-   - **ออกเสียงคำศัพท์ด้วยสำเนียงแท้**: เพียงคลิกที่ตัวอักษรภาษาอังกฤษ ระบบจะออกเสียงคำศัพท์สำเนียงอเมริกันทันทีด้วย `AVSpeechSynthesizer`
-
-2. **ระบบการจำคำศัพท์แบบเว้นระยะอัจฉริยะ (SRS Algorithm)**
-   - ปรับรอบเวลาการทบทวนคำศัพท์ตามความแม่นยำอย่างเป็นธรรมชาติ:
-     - ตอบถูก 1 - 2 ครั้งติดกัน: ทบทวนใหม่ในอีก 1 วัน
-     - ตอบถูก 3 - 4 ครั้งติดกัน: แสดงน้อยลง ทบทวนในอีก 3 วัน
-     - ตอบถูก 5 ครั้งติดกัน: ทบทวนในอีก 5 วัน
-     - ตอบถูก 6 ครั้งขึ้นไป: ขยายระยะเวลาเพิ่มขึ้นครั้งละ 5 วัน (10 วัน, 15 วัน, 20 วัน...)
-
-3. **หน้าต่างควิซทดสอบความจำ (Pop-up Quiz)**
-   - แจ้งเตือนทดสอบคำศัพท์เป็นรอบๆ โดยสุ่มรูปแบบคำถาม 50/50:
-     - **แบบปรนัย 4 ตัวเลือก (A, B, C, D)**: ดึงความหมายจากคลังคำศัพท์มาเป็นตัวเลือก
-     - **แบบพิมพ์คำศัพท์ (Typing Mode)**: แสดงความหมายภาษาไทยและให้คุณพิมพ์คำศัพท์ภาษาอังกฤษที่ถูกต้อง (ไม่แยกตัวพิมพ์เล็ก-ใหญ่)
-   - หน้าต่างลอยอยู่ด้านบนสุด พร้อมปุ่ม **Snooze 30 นาที** และ **Snooze 1 ชั่วโมง** เมื่อคุณต้องการสมาธิ
-
-4. **โหมดตรวจจับภาพยนตร์เต็มหน้าจอ (Smart Do-Not-Disturb)**
-   - ระบบตรวจจับหน้าต่างอัตโนมัติผ่าน macOS CoreGraphics: หากคุณกำลังดู Netflix, YouTube เต็มจอ หรือเล่นเกม แอปจะ**เลื่อนเวลาควิซออกไป 10 นาทีโดยอัตโนมัติและเงียบสนิท** ไม่เด้งขึ้นมากวนใจ
-
-5. **ควบคุมผ่าน Menu Bar และระบบจัดการคำศัพท์**
-   - แสดงคำศัพท์ปัจจุบันบนแถบสถานะ (Menu Bar) แบบเรียลไทม์
-   - ระบบคลังคำศัพท์รูปแบบการ์ด มีระบบแจ้งเตือนป้องกันการเพิ่มคำศัพท์ซ้ำอย่างชาญฉลาด
+1. **แถบ Menu Bar มินิมอลเรียบหรู**: แสดงคำศัพท์ปัจจุบันแบบเรียลไทม์ และซ่อนคำศัพท์อัตโนมัติขณะทำควิซเพื่อป้องกันการดูเฉลย
+2. **ควิซทดสอบความจำ 2 โหมด**: มีทั้งแบบเลือกตอบ 4 ตัวเลือกและแบบพิมพ์สะกดคำศัพท์ พร้อมเสียงอ่านสำเนียงอเมริกันและปุ่มเลื่อนเวลา (Snooze 30m / 1h)
+3. **ระบบการจำคำศัพท์แบบเว้นระยะ (SRS)**: คำนวณช่วงเวลาทบทวนตามความแม่นยำอัตโนมัติ (1 วัน, 3 วัน, 5 วัน, 10 วัน...)
+4. **โหมดตรวจจับภาพยนตร์เต็มหน้าจอ (Do-Not-Disturb)**: เลื่อนเวลาควิซ 10 นาทีอัตโนมัติเมื่อดูวิดีโอหรือนำเสนองานเต็มจอ
+5. **อัปเดตอัตโนมัติในคลิกเดียว**: ดาวน์โหลดและติดตั้งเวอร์ชันใหม่อัตโนมัติโดยไม่ต้องลากไฟล์เอง
 
 ---
 

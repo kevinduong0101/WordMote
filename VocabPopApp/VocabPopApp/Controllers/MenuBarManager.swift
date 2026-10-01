@@ -43,11 +43,14 @@ class MenuBarManager: NSObject {
         popover.behavior = .transient
         popover.contentViewController = NSHostingController(rootView: menuView)
         
-        // Theo dõi sự thay đổi của từ vựng hiện tại để hiển thị lên thanh Status Bar
-        wordManager.$currentWordToShow
+        // Theo dõi sự thay đổi của từ vựng hiện tại và trạng thái Quiz để hiển thị lên thanh Status Bar
+        Publishers.CombineLatest(wordManager.$currentWordToShow, wordManager.$showQuiz)
             .receive(on: RunLoop.main)
-            .sink { [weak self] newWord in
-                if let word = newWord?.word {
+            .sink { [weak self] currentWord, isQuizShown in
+                if isQuizShown {
+                    // Khi Quiz hiện ra, tạm thời ẩn từ vựng để tránh lộ đáp án
+                    self?.statusItem.button?.title = ""
+                } else if let word = currentWord?.word {
                     self?.statusItem.button?.title = " \(word)"
                 } else {
                     self?.statusItem.button?.title = ""
@@ -83,10 +86,6 @@ class MenuBarManager: NSObject {
     
     func closePopover() {
         popover.performClose(nil)
-    }
-    
-    @objc func toggleWidget() {
-        DesktopWidgetManager.shared.toggleWidget(wordManager: wordManager)
     }
     
     @objc func showAddWord() {

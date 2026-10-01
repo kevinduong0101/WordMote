@@ -9,20 +9,42 @@ struct MenuView: View {
         VStack(spacing: 6) {
             if updateManager.isUpdateAvailable {
                 Button(action: {
-                    updateManager.openDownloadPage()
-                    menuBarManager.closePopover()
+                    if !updateManager.isDownloading && !updateManager.isInstalling {
+                        updateManager.startAutoUpdate()
+                    }
                 }) {
                     HStack(spacing: 8) {
-                        Image(systemName: "sparkles")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.yellow)
-                        Text("New Update: v\(updateManager.latestVersion)")
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundColor(.white)
-                        Spacer()
-                        Image(systemName: "arrow.down.circle.fill")
-                            .font(.system(size: 14))
-                            .foregroundColor(.white)
+                        if updateManager.isDownloading {
+                            ProgressView()
+                                .scaleEffect(0.65)
+                                .colorInvert()
+                            Text("Downloading: \(Int(updateManager.downloadProgress * 100))%")
+                                .font(.system(size: 11, weight: .bold))
+                                .foregroundColor(.white)
+                            Spacer()
+                        } else if updateManager.isInstalling {
+                            ProgressView()
+                                .scaleEffect(0.65)
+                                .colorInvert()
+                            Text("Installing & relaunching...")
+                                .font(.system(size: 11, weight: .bold))
+                                .foregroundColor(.white)
+                            Spacer()
+                        } else {
+                            Image(systemName: "sparkles")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.yellow)
+                            Text("New Update: v\(updateManager.latestVersion)")
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(.white)
+                            Spacer()
+                            Text("Update")
+                                .font(.system(size: 10, weight: .heavy))
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 3)
+                                .background(Color.white.opacity(0.25))
+                                .cornerRadius(5)
+                        }
                     }
                     .padding(.vertical, 8)
                     .padding(.horizontal, 10)
@@ -30,18 +52,11 @@ struct MenuView: View {
                     .cornerRadius(8)
                 }
                 .buttonStyle(PlainButtonStyle())
+                .disabled(updateManager.isDownloading || updateManager.isInstalling)
                 
                 Divider()
                     .padding(.vertical, 2)
             }
-            
-            MenuButton(icon: "macwindow", title: "Toggle Desktop Widget") {
-                menuBarManager.toggleWidget()
-                menuBarManager.closePopover()
-            }
-            
-            Divider()
-                .padding(.vertical, 4)
             
             MenuButton(icon: "plus.circle", title: "Add New Word") {
                 menuBarManager.showAddWord()

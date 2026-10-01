@@ -36,7 +36,27 @@ class WordManager: ObservableObject {
     }
     
     func getDocumentsDirectory() -> URL {
-        return fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let appSupport = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("WordMote")
+        if !fileManager.fileExists(atPath: appSupport.path) {
+            try? fileManager.createDirectory(at: appSupport, withIntermediateDirectories: true)
+        }
+        
+        let targetURL = appSupport.appendingPathComponent("words.json")
+        if !fileManager.fileExists(atPath: targetURL.path) {
+            // Migrate from Sandbox container if available
+            let containerURL = fileManager.homeDirectoryForCurrentUser
+                .appendingPathComponent("Library/Containers/com.kev.WordMote/Data/Documents/words.json")
+            if fileManager.fileExists(atPath: containerURL.path) {
+                try? fileManager.copyItem(at: containerURL, to: targetURL)
+            } else {
+                // Check legacy documents directory
+                let legacyDoc = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("words.json")
+                if fileManager.fileExists(atPath: legacyDoc.path) {
+                    try? fileManager.copyItem(at: legacyDoc, to: targetURL)
+                }
+            }
+        }
+        return appSupport
     }
     
     func getWordsFileURL() -> URL {

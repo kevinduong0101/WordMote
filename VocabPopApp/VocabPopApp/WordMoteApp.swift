@@ -23,9 +23,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         createSampleJSONIfNeeded()
         
         menuBarManager = MenuBarManager(wordManager: WordMoteApp.sharedWordManager)
-        
-        // Hiện widget ngay khi khởi động
-        DesktopWidgetManager.shared.showWidget(wordManager: WordMoteApp.sharedWordManager)
     }
     
     func createSampleJSONIfNeeded() {

@@ -23,12 +23,12 @@ struct SettingsView: View {
             .background(Color.secondary.opacity(0.05))
             
             VStack(spacing: 16) {
-                // Card 1: Auto-Play
+                // Card 1: Word Rotation
                 SettingCard(
                     icon: "timer",
                     iconColor: .blue,
-                    title: "Auto-Play Speed",
-                    description: "How often the widget automatically switches to a new word.",
+                    title: "Word Rotation Interval",
+                    description: "How often the Menu Bar switches to a new vocabulary word.",
                     value: $autoAdvanceMinutes
                 ) {
                     wordManager.resetTimer()
@@ -73,11 +73,39 @@ struct SettingsView: View {
                     Spacer()
                     
                     if updateManager.isUpdateAvailable {
-                        Button("Update Now") {
-                            updateManager.openDownloadPage()
+                        if updateManager.isDownloading {
+                            VStack(spacing: 4) {
+                                ProgressView(value: updateManager.downloadProgress, total: 1.0)
+                                    .frame(width: 110)
+                                Text("\(Int(updateManager.downloadProgress * 100))%")
+                                    .font(.caption2)
+                                    .foregroundColor(.secondary)
+                            }
+                        } else if updateManager.isInstalling {
+                            HStack(spacing: 6) {
+                                ProgressView()
+                                    .scaleEffect(0.7)
+                                Text("Installing...")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        } else {
+                            HStack(spacing: 8) {
+                                Button("Update Now") {
+                                    updateManager.startAutoUpdate()
+                                }
+                                .buttonStyle(.borderedProminent)
+                                .tint(.blue)
+                                
+                                Button {
+                                    updateManager.openDownloadPage()
+                                } label: {
+                                    Image(systemName: "arrow.up.right.square")
+                                }
+                                .buttonStyle(.borderless)
+                                .help("Download DMG manually")
+                            }
                         }
-                        .buttonStyle(.borderedProminent)
-                        .tint(.blue)
                     } else {
                         Button(action: {
                             updateManager.checkForUpdates(silent: false)
