@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/kevinduong0101/WordMote/releases/latest"><img src="https://img.shields.io/badge/Release-v1.0.0-blue.svg?style=flat-square" alt="Latest Release"></a>
+  <a href="https://github.com/kevinduong0101/WordMote/releases/latest"><img src="https://img.shields.io/badge/Release-v1.0.1-blue.svg?style=flat-square" alt="Latest Release"></a>
   <img src="https://img.shields.io/badge/Platform-macOS%2013.0%2B-black?style=flat-square&logo=apple" alt="macOS">
   <img src="https://img.shields.io/badge/Language-Swift%205.9%2B-orange?style=flat-square&logo=swift" alt="Swift">
   <img src="https://img.shields.io/badge/UI-SwiftUI%20%2B%20AppKit-blue?style=flat-square" alt="SwiftUI">
